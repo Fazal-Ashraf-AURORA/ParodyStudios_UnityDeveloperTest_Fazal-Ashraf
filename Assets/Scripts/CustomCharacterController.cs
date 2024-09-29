@@ -199,13 +199,20 @@ public class CustomCharacterController : MonoBehaviour
         }
     }
 
-    //private bool IsGrounded()
-    //{
-    //    float distanceToGround = 1f;
-    //    RaycastHit hit;
-    //    isGrounded = Physics.Raycast(transform.position, -currentGravityDirection, out hit, distanceToGround, groundLayer);
-    //    return isGrounded;
-    //}
+    private bool IsGrounded()
+    {
+        float distanceToGround = 1f;  // Adjust as needed
+        RaycastHit hit;
+
+        // Perform the raycast to check for ground
+        isGrounded = Physics.Raycast(transform.position, currentGravityDirection, out hit, distanceToGround, groundLayer);
+
+        // Debugging: Draw the ray in the Scene view for visualization
+        Debug.DrawRay(transform.position, -currentGravityDirection * distanceToGround, isGrounded ? Color.green : Color.red);
+
+        return isGrounded;
+    }
+
 
     //private bool IsGrounded()
     //{
@@ -221,19 +228,24 @@ public class CustomCharacterController : MonoBehaviour
     //    return isGrounded;
     //}
 
-    private bool IsGrounded()
-    {
-        float groundCheckRadius = 0.2f;  // Adjust the radius as needed
-        float groundCheckDistance = 0.1f;  // How far to check for the ground
+    //private bool IsGrounded()
+    //{
+    //    float groundCheckRadius = 0.5f;  // Adjust the radius as needed
+    //    float groundCheckDistance = 0.5f;  // Adjust how far to check for ground (distance below player)
 
-        // Calculate the bottom of the capsule based on the current gravity direction
-        Vector3 capsuleBottom = transform.position + (-currentGravityDirection * (GetComponent<CapsuleCollider>().height / 2));
+    //    // Calculate the bottom of the capsule based on the current gravity direction
+    //    CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+    //    Vector3 capsuleBottom = transform.position + (-currentGravityDirection * (capsuleCollider.height / 2));
 
-        // Perform a sphere cast in the direction of gravity to check for ground
-        isGrounded = Physics.SphereCast(capsuleBottom, groundCheckRadius, -currentGravityDirection, out RaycastHit hit, groundCheckDistance, groundLayer);
+    //    // Perform a SphereCast in the direction of gravity to check for ground
+    //    bool isGrounded = Physics.SphereCast(capsuleBottom, groundCheckRadius, -currentGravityDirection, out RaycastHit hit, groundCheckDistance, groundLayer);
 
-        return isGrounded;
-    }
+    //    // Optional Debugging: Visualize the sphere cast in the editor (remove this line in production)
+    //    Debug.DrawRay(capsuleBottom, -currentGravityDirection * groundCheckDistance, isGrounded ? Color.green : Color.red);
+
+    //    return isGrounded;
+    //}
+
 
 
 
